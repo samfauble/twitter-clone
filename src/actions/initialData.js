@@ -5,13 +5,15 @@ import {initialUsers} from "./users"
 import {getInitialData} from "../utils/api"
 
 
-export function initData (tweets, users) {
-    return (dispatch, getState) => {
+export function initData () {
+    return (dispatch) => {
         dispatch(showLoading())
-        getInitialData(users, tweets)
-        .then(()=> dispatch(initialTweets(tweets)))
-        .then(()=> dispatch(initialUsers(users)))
-        .then(()=> dispatch(setAuthedUser(SET_AUTHED_USER)))
-        .then(()=> dispatch(hideLoading()))
+        getInitialData()
+        .then((users, tweets)=> {
+        dispatch(initialTweets(tweets))
+         dispatch(initialUsers(users))
+         dispatch(setAuthedUser(SET_AUTHED_USER))
+         dispatch(hideLoading())
+        })
     }
 }
