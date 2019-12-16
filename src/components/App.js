@@ -4,30 +4,26 @@ import {connect} from "react-redux"
 import {initData} from "../actions/initialData"
 
 class App extends Component {
-
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       loading: true
-    }
-  }
-  
   
   componentDidMount() {
-    this.setState({loading: true})
     this.props.dispatch(initData())
-    this.setState({loading: false})
   }
   
   render() {
-    console.log(this.state.loading)
+    console.log(this.props.loading)
     return (
       <div>
-        <Home />
+        {this.props.loading === true ? <h2>Loading</h2> :
+        <div> <Home /> </div>}
       </div>
     )
   }
 }
 
-export default connect()(App)
+function mapStateToProps ({authedUser}) {
+  return {
+    loading: authedUser === null,
+  } 
+}
+
+export default connect(mapStateToProps)(App)
