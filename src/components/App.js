@@ -24,8 +24,7 @@ class App extends Component {
     console.log(this.state.loading)
     return (
       <div>
-        {this.state.loading === true ? null :
-        <Home />}
+        <Home />
       </div>
     )
   }
