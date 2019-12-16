@@ -6,7 +6,8 @@ export function users (state={}, action) {
     switch(action.type) {
         case INITIAL_USERS:
             return {
-                ...users
+                ...state,
+                ...action.users
             }
         default :
             return state
