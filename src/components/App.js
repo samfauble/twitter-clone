@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Home from "./Home"
+import AddTweet from "./AddTweet"
 import {connect} from "react-redux"
 import {initData} from "../actions/initialData"
 
@@ -14,7 +15,7 @@ class App extends Component {
     return (
       <div>
         {this.props.loading === true ? <h2>Loading</h2> :
-        <div> <Home /> </div>}
+        <div> <AddTweet /> </div>}
       </div>
     )
   }

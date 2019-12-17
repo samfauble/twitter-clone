@@ -1,14 +1,58 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
+import {FaReply, FaRegHeart} from "react-icons/fa"
 
 export class Home extends Component {
     render() {
-        const {author, numLikes, localeTime, localeDate, isReply, text, authorAvatar} = this.props.tweets
+        const {tweets, users} = this.props
 
+        
         return (
             <div>
-                <h2>Your Timeline</h2>
-                <pre>{JSON.stringify(this.props.tweets, null, 2)}</pre>
+                <h3>Your Timeline</h3>
+                <ul>
+        {/*make prop "tweets" equal to author, text, numLikes, etc
+        //Object.keys gives me an iterable array of tweets' keys, and when mapped over, I am given an id 
+        //I destructure the tweet data slices by specifying the specific tweet @ tweets[id] */}
+                    {Object.keys(tweets).map((tweetId)=> {
+                        const {author, likes, replyingTo, text, timestamp} = tweets[tweetId]
+                        const numLikes = likes.length
+
+                        const date = new Date (timestamp)
+                        const localeTime = date.toLocaleTimeString()
+                        const localeDate = date.toLocaleDateString()
+                
+                        const isReply = replyingTo === null ? null : tweets[replyingTo].author
+                
+                        const authorAvatar = users[author].avatarURL
+
+                        const authorName = users[author].name
+                        console.log(authorAvatar)
+                        return(
+                        <li key={tweetId}>
+                            
+                                <img src={authorAvatar} alt={`${author}'s avatar`} />
+                                <div className="tweet-container">
+                                <h4>{authorName}</h4>
+                                <p className="meta">{localeTime} | {localeDate} </p>
+                                {isReply === null ? null : <p className="meta">{`Replying to ${isReply}`}</p>}
+                            <p>{text}</p>
+                                <div className="flex-row">
+                                    <button>
+                                        <FaReply size="22px" />
+                                    </button>
+                                    <button>
+                                        <FaRegHeart size="22px" />
+                                    </button>
+                                    <p>{numLikes}</p>
+                                </div>
+                            </div>
+
+                            
+                        </li>
+                        )
+                    })}
+                </ul>
             </div>
         )
     }
@@ -16,31 +60,10 @@ export class Home extends Component {
 
 function mapStateToProps ({tweets, users}) {
     return{
-        //make prop "tweets" equal to author, text, numLikes, etc
-        //Object.keys gives me an iterable array of tweets' keys, and when mapped over, I am given an id
-        //I destructure the tweet data slices by specifying the specific tweet @ tweets[id]
-    tweets: Object.keys(tweets).map((id)=>{
-        const {author, likes, replyingTo, text, timestamp} = tweets[id]
-        const numLikes = likes.length
-
-        const date = new Date (timestamp)
-        const localeTime = date.toLocaleTimeString()
-        const localeDate = date.toLocaleDateString()
-
-        const isReply = replyingTo === null ? null : tweets[replyingTo].author
-
-        const authorAvatar = users[author].avatarURL
-
-        return{
-            author,
-            text,
-            numLikes,
-            localeDate,
-            localeTime,
-            isReply,
-            authorAvatar
-        }
-    })
+       
+    users,
+    tweets
+    }
     /*
     const numLikes = likes.length
 
@@ -66,6 +89,6 @@ function mapStateToProps ({tweets, users}) {
     }
 */
 }
-}
+
 
 export default connect(mapStateToProps)(Home)
