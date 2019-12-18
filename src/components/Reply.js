@@ -12,7 +12,7 @@ export class Reply extends Component {
                 <ul>
                     <Tweet tweetId={tweetId} />
                 </ul>
-                <AddTweet />
+                <AddTweet replyTo={tweetId} />
             </div>
         )
     }

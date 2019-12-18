@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div>
         {this.props.loading === true ? <h2>Loading</h2> :
-        <div> <Reply tweetId="8xf0y6ziyjabvozdd253nd" /> </div>}
+        <div> <Home /> </div>}
       </div>
     )
   }

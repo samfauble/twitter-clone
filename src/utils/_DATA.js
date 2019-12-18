@@ -236,7 +236,7 @@ export function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-function formatTweet ({ author, text, replyingTo = null }) {
+export function formatTweet ({ author, text, replyingTo = null }) {
   return {
     author,
     id: generateUID(),

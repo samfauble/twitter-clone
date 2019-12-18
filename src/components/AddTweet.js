@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
 import {_saveTweet} from "../utils/_DATA"
-import {addTweet} from "../actions/tweets"
+import {addTweet, addReply} from "../actions/tweets"
 
 export class AddTweet extends Component {
-
+//optional attribute: tweet id
+//output: addTweet, addReply
     constructor(props) {
         super(props)
     
@@ -23,17 +24,20 @@ export class AddTweet extends Component {
         e.preventDefault()
         //add as new tweet to DB
         const {textbox} = this.state
-        const {authedUser, dispatch} = this.props
+        const {authedUser, dispatch, replyTo} = this.props
         //If a function destructures in the args parens, args should be in an object
         const input = 
             {text: textbox, 
             author: authedUser, 
-            replyingTo: null}
-        _saveTweet(input)
-        .then(()=> dispatch(addTweet(input)))
-        .then(()=> this.setState({
-            textbox: ""
-        }))
+            replyingTo: replyTo}
+
+            _saveTweet(input)
+            .then(()=> dispatch(addTweet(input)))
+            .then(()=> this.setState({
+                textbox: ""
+            }))
+       
+
         //add to UI state
         //erase textarea
     }
@@ -58,6 +62,10 @@ export class AddTweet extends Component {
             </form>
         )
     }
+}
+
+AddTweet.defaultProps = {
+    replyTo: null
 }
 
 function mapPropsToState({authedUser}) {

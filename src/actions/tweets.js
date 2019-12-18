@@ -1,8 +1,9 @@
-import {generateUID} from "../utils/_DATA"
+import {generateUID, formatTweet} from "../utils/_DATA"
 
 
 export const INITIAL_TWEETS = "INITIAL_TWEETS"
 export const ADD_TWEET = "ADD_TWEET"
+export const ADD_REPLY = "ADD_REPLY"
 
 export function initialTweets (tweets) {
     return {
@@ -27,3 +28,12 @@ export function addTweet ({text, author, replyingTo= null}) {
         tweet
     }
 }
+
+export function addReply ({text, author, replyingTo}) {
+    return{
+        type: ADD_REPLY,
+        tweet: formatTweet(text, author, replyingTo)
+    }
+    
+}
+
