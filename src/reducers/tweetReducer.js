@@ -11,20 +11,16 @@ export function tweets (state={}, action) {
                 ...action.tweets
             }
         case ADD_TWEET:
+            //I had to change two parts of the tweet data with the same action 
             return {
                 ...state,
-                [action.tweet.id]: action.tweet
+                [action.tweet.id]: action.tweet,
+                [action.tweet.replyingTo]: {
+                    ...state[action.tweet.replyingTo],
+                    replies: state[action.tweet.replyingTo].replies.concat(action.tweet.id)
+                }      
             }
-        case ADD_TWEET:
-            return {
-               ...state,
-               [action.tweet.replyingTo]: {
-                   ...state[action.tweet.replyingTo],
-                   replies: state[action.tweet.replyingTo].replies.concat([action.tweet.replyingTo])
-               }
-            } 
         case LIKE_TWEET:
-        
             return {
                 ...state,
                 [action.id]: {

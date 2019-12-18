@@ -17,7 +17,7 @@ export class AddTweet extends Component {
     handleChange = (e) => {
         this.setState({
             textbox: e.target.value
-        }, ()=> console.log(this.state.textbox))
+        })
     }
 
     handleSubmit = (e) => {
