@@ -2,6 +2,30 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 import {FaReply, FaRegHeart} from "react-icons/fa"
 
+export function Tweet ({tweetId, authorAvatar, author, authorName, localeTime, numLikes, localeDate, text, isReply}) {
+    return(
+        <li key={tweetId}>
+            <img src={authorAvatar} alt={`${author}'s avatar`} />
+            <div className="tweet-container">
+                <h4>{authorName}</h4>
+                <p className="meta">{localeTime} | {localeDate} </p>
+                {isReply === null ? null : <p className="meta">{`Replying to ${isReply}`}</p>}
+                <p>{text}</p>
+                <div className="flex-row">
+                    <button>
+                        <FaReply size="22px" />
+                    </button>
+                    <button>
+                        <FaRegHeart size="22px" />
+                    </button>
+                    <p>{numLikes}</p>
+                </div>
+            </div>               
+        </li>
+    )
+}
+
+
 export class Home extends Component {
     render() {
         const {tweets, users} = this.props
@@ -27,29 +51,18 @@ export class Home extends Component {
                         const authorAvatar = users[author].avatarURL
 
                         const authorName = users[author].name
-                        console.log(authorAvatar)
+                    
                         return(
-                        <li key={tweetId}>
-                            
-                                <img src={authorAvatar} alt={`${author}'s avatar`} />
-                                <div className="tweet-container">
-                                <h4>{authorName}</h4>
-                                <p className="meta">{localeTime} | {localeDate} </p>
-                                {isReply === null ? null : <p className="meta">{`Replying to ${isReply}`}</p>}
-                            <p>{text}</p>
-                                <div className="flex-row">
-                                    <button>
-                                        <FaReply size="22px" />
-                                    </button>
-                                    <button>
-                                        <FaRegHeart size="22px" />
-                                    </button>
-                                    <p>{numLikes}</p>
-                                </div>
-                            </div>
-
-                            
-                        </li>
+                            <Tweet
+                            tweetId={tweetId} 
+                            authorAvatar={authorAvatar} 
+                            author={author} 
+                            authorName={authorName} 
+                            localeTime={localeTime} 
+                            numLikes={numLikes} 
+                            localeDate={localeDate} 
+                            text={text} 
+                            isReply={isReply} />
                         )
                     })}
                 </ul>

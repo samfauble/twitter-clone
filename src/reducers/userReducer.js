@@ -14,6 +14,7 @@ export function users (state={}, action) {
             return {
                 ...state,
                 [action.tweet.author]: {
+                    //state needed below
                     ...state[action.tweet.author],
                     tweets: state[action.tweet.author].tweets.concat(action.tweet.id)
                 }
