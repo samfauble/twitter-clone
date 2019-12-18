@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import {FaReply, FaRegHeart} from "react-icons/fa"
 import {saveLikeToggle} from "../utils/api"
 import {likeTweet} from "../actions/likeTweet"
+import {Link} from "react-router-dom"
 
 export function Tweet ({tweetId, hasLiked, authedUser, authorAvatar, author, authorName, localeTime, numLikes, localeDate, text, isReply, dispatch}) {
 
@@ -24,7 +25,7 @@ export function Tweet ({tweetId, hasLiked, authedUser, authorAvatar, author, aut
 
     
     return(
-        <li key={tweetId}>
+        <li>
             <img src={authorAvatar} alt={`${author}'s avatar`} />
             <div className="tweet-container">
                 <h4>{authorName}</h4>
@@ -33,7 +34,9 @@ export function Tweet ({tweetId, hasLiked, authedUser, authorAvatar, author, aut
                 <p>{text}</p>
                 <div className="flex-row">
                     <button>
-                        <FaReply size="22px" />
+                        <Link to={`/tweet/${tweetId}`}>
+                            <FaReply size="22px" />
+                        </Link>
                     </button>
                     <button onClick={()=> handleClick()}>
                         {hasLiked === false 

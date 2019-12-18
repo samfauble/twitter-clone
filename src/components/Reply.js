@@ -5,7 +5,7 @@ import AddTweet from "./AddTweet"
 
 export class Reply extends Component {
     render() {
-        const {tweetId}= this.props
+        const {tweetId}= this.props.match.params
         console.log(tweetId)
         return (
             <div>

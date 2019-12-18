@@ -17,7 +17,7 @@ export class Home extends Component {
         //I destructure the tweet data slices by specifying the specific tweet @ tweets[id] */}
                     {Object.keys(tweets).map((tweetId)=> {
                         return(
-                            <Tweet tweetId={tweetId}  />
+                            <Tweet tweetId={tweetId} key={tweetId}  />
                         )
                     })}
                 </ul>

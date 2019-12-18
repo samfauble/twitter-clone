@@ -18,9 +18,9 @@ export function tweets (state={}, action) {
         case ADD_TWEET:
             return {
                ...state,
-               [action.tweet.id]: {
-                   ...state[action.tweet.id],
-                   replies: state[action.tweet.id].replies.concat([action.tweet.replyingTo])
+               [action.tweet.replyingTo]: {
+                   ...state[action.tweet.replyingTo],
+                   replies: state[action.tweet.replyingTo].replies.concat([action.tweet.replyingTo])
                }
             } 
         case LIKE_TWEET:
