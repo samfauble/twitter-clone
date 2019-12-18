@@ -11,14 +11,21 @@ export function tweets (state={}, action) {
                 ...action.tweets
             }
         case ADD_TWEET:
+            //added an if statement, otherwise error would be thrown if replyingTo === null
             //I had to change two parts of the tweet data with the same action 
+            if (action.tweet.replyingTo !== null){
             return {
                 ...state,
                 [action.tweet.id]: action.tweet,
                 [action.tweet.replyingTo]: {
                     ...state[action.tweet.replyingTo],
                     replies: state[action.tweet.replyingTo].replies.concat(action.tweet.id)
-                }      
+                }}     
+            } else {
+               return {
+                ...state,
+                [action.tweet.id]: action.tweet
+               } 
             }
         case LIKE_TWEET:
             return {

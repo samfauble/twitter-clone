@@ -12,13 +12,16 @@ export function initialTweets (tweets) {
     }
 }
 
-export function addTweet ({author, replyingTo}) {
+export function addTweet ({text, author, replyingTo= null}) {
     const tweet = {
         id: generateUID(),
+        text,
         author,
+        timestamp: Date.now(),
+        likes: [],
+        replies: [],
         replyingTo
     }
-    
     return {
         type: ADD_TWEET,
         tweet
@@ -28,7 +31,6 @@ export function addTweet ({author, replyingTo}) {
 export function addReply (id) {
     return{
         type: ADD_REPLY,
-        id
     }
     
 }
