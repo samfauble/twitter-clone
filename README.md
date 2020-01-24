@@ -1,5 +1,3 @@
-## Instructions
-
 # Technologies used:
 
 - Redux
@@ -7,7 +5,9 @@
 - ES6
 - Webpack
 
-# To run:
+# Instructions
+
+## To run:
 
 - Clone this repository 
 - Download npm if need be 
